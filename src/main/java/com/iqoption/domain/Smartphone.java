@@ -19,6 +19,16 @@ public class Smartphone extends Product {
     public void setManufacturer(String manufacturer) {
         this.manufacturer = manufacturer;
     }
+
+    @Override
+    public boolean matches(Product product, String request) {
+        Smartphone phone = (Smartphone) product;
+        if (phone.getManufacturer().equalsIgnoreCase(request)) {
+            return true;
+        } else {
+            return super.matches(product, request);
+        }
+    }
 }
 
 

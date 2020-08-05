@@ -21,6 +21,15 @@ public class Book extends Product {
         this.author = author;
     }
 
+    @Override
+    public boolean matches(Product product, String request) {
+        Book book = (Book) product;
+        if (book.getAuthor().equalsIgnoreCase(request)) {
+            return true;
+        } else {
+            return super.matches(product, request);
+        }
+    }
 }
 
 
