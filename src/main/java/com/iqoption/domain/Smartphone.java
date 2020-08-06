@@ -21,12 +21,11 @@ public class Smartphone extends Product {
     }
 
     @Override
-    public boolean matches(Product product, String request) {
-        Smartphone phone = (Smartphone) product;
-        if (phone.getManufacturer().equalsIgnoreCase(request)) {
+    public boolean matches(String request) {
+        if (manufacturer.equalsIgnoreCase(request)) {
             return true;
         } else {
-            return super.matches(product, request);
+            return super.matches(request);
         }
     }
 }

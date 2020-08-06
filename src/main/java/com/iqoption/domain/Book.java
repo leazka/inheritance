@@ -22,12 +22,11 @@ public class Book extends Product {
     }
 
     @Override
-    public boolean matches(Product product, String request) {
-        Book book = (Book) product;
-        if (book.getAuthor().equalsIgnoreCase(request)) {
+    public boolean matches(String request) {
+        if (author.equalsIgnoreCase(request)) {
             return true;
         } else {
-            return super.matches(product, request);
+            return super.matches(request);
         }
     }
 }
