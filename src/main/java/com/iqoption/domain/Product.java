@@ -22,6 +22,10 @@ public class Product {
         this.name = name;
     }
 
+    public boolean matches(String request) {
+        return name.equalsIgnoreCase(request);
+    }
+
     public int getId() {
         return id;
     }

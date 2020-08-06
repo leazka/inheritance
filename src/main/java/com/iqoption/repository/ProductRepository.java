@@ -18,8 +18,11 @@ public class ProductRepository {
     }
 
     public void removeById(int id) {
-        Product[] tmp = new Product[items.length - 1];
+        if (findById(id) == null) {
+            throw new NotFoundException("item is not in the repository");
+        }
 
+        Product[] tmp = new Product[items.length - 1];
         int index = 0;
 
         for (Product item : items) {
@@ -31,14 +34,13 @@ public class ProductRepository {
         items = tmp;
     }
 
-    public Product findbyId(int id) {
-        Product product = null;
+    public Product findById(int id) {
         for (Product item : items) {
             if (item.getId() == id) {
-                product = item;
+                return item;
             }
         }
-        return product;
+        return null;
     }
 
     public Product[] findAll() {

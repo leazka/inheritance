@@ -1,11 +1,8 @@
 package com.iqoption.manager;
 
-import com.iqoption.domain.Book;
 import com.iqoption.domain.Product;
-import com.iqoption.domain.Smartphone;
 import com.iqoption.repository.ProductRepository;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 //@NoArgsConstructor
@@ -24,7 +21,7 @@ public class ProductManager {
     }
 
     public Product findById(int id) {
-        Product product = repository.findbyId(id);
+        Product product = repository.findById(id);
         return product;
     }
 
@@ -40,7 +37,7 @@ public class ProductManager {
         Product[] products = repository.findAll();
         Product[] result = new Product[0];
         for (Product product : products) {
-            if (matches(product, request)) {
+            if (product.matches(request)) {
                 Product[] tmp = new Product[result.length + 1];
                 System.arraycopy(result, 0, tmp, 0, result.length);
                 tmp[tmp.length - 1] = product;
@@ -50,19 +47,19 @@ public class ProductManager {
         return result;
     }
 
-    private boolean matches(Product product, String request) {
-        boolean result = false;
-        if (product.getName().equalsIgnoreCase(request)) {
-            return true;
-        }
-        if (product instanceof Book) {
-            Book book = (Book) product;
-            result = book.getAuthor().equalsIgnoreCase(request);
-        }
-        if (product instanceof Smartphone) {
-            Smartphone phone = (Smartphone) product;
-            result = phone.getManufacturer().equalsIgnoreCase(request);
-        }
-        return result;
-    }
+//    private boolean matches(Product product, String request) {
+//        boolean result = false;
+//        if (product.getName().equalsIgnoreCase(request)) {
+//            return true;
+//        }
+//        if (product instanceof Book) {
+//            Book book = (Book) product;
+//            result = book.getAuthor().equalsIgnoreCase(request);
+//        }
+//        if (product instanceof Smartphone) {
+//            Smartphone phone = (Smartphone) product;
+//            result = phone.getManufacturer().equalsIgnoreCase(request);
+//        }
+//        return result;
+//    }
 }
