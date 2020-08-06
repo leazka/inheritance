@@ -37,7 +37,7 @@ class ProductManagerTest {
     @Test
     public void shouldFindById() {
         Book returned = book2;
-        doReturn(returned).when(repository).findbyId(3);
+        doReturn(returned).when(repository).findById(3);
 
         assertEquals(book2, manager.findById(3));
     }
