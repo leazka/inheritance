@@ -1,15 +1,16 @@
 package com.generics.manager;
 
+import com.generics.comparator.TicketsByTimeEnRoute;
 import com.generics.domain.Ticket;
 import com.generics.repository.TicketRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.doReturn;
 
 @ExtendWith(MockitoExtension.class)
@@ -20,17 +21,10 @@ class TicketManagerTest {
     @InjectMocks
     TicketManager manager;
     Ticket ticket1 = new Ticket(1, 120, "LED", "AMS", 180);
-    Ticket ticket2 = new Ticket(2, 260, "AMS", "CPT", 480);
+    Ticket ticket2 = new Ticket(2, 260, "AMS", "CPT", 600);
     Ticket ticket3 = new Ticket(3, 100, "LED", "AMS", 160);
     Ticket ticket4 = new Ticket(4, 280, "AMS", "CPT", 510);
 
-    @BeforeEach
-    void setUp() {
-        manager.add(ticket1);
-        manager.add(ticket2);
-        manager.add(ticket3);
-        manager.add(ticket4);
-    }
 
     @Test
     public void shouldFindById() {
@@ -66,7 +60,7 @@ class TicketManagerTest {
         Ticket[] products = {ticket1, ticket2, ticket3, ticket4};
         doReturn(products).when(repository).findAll();
 
-        Ticket[] expectedTickets = {ticket3,  ticket1};
+        Ticket[] expectedTickets = {ticket3, ticket1};
         Ticket[] returnedTickets = manager.searchBy("LED", "AMS");
         assertArrayEquals(expectedTickets, returnedTickets);
 
@@ -75,6 +69,16 @@ class TicketManagerTest {
         Ticket[] returnedTickets2 = manager.searchBy("AMS", "LED");
         assertArrayEquals(emptyArray, returnedTickets2);
 
+    }
+
+    @Test
+    public void shouldSearchByWithComparator() {
+        Ticket[] products = {ticket1, ticket2, ticket3, ticket4};
+        doReturn(products).when(repository).findAll();
+
+        Ticket[] expectedTickets = {ticket4, ticket2};
+        Ticket[] returnedTickets = manager.searchBy("AMS", "CPT", new TicketsByTimeEnRoute());
+        assertArrayEquals(expectedTickets, returnedTickets);
     }
 
 
