@@ -2,7 +2,6 @@ package com.generics.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Value;
 
 @AllArgsConstructor
 @Data
