@@ -19,9 +19,9 @@ class TicketManagerTest {
     TicketRepository repository;
     @InjectMocks
     TicketManager manager;
-    Ticket ticket1 = new Ticket(1, 100, "LED", "AMS", 180);
+    Ticket ticket1 = new Ticket(1, 120, "LED", "AMS", 180);
     Ticket ticket2 = new Ticket(2, 260, "AMS", "CPT", 480);
-    Ticket ticket3 = new Ticket(3, 120, "LED", "AMS", 160);
+    Ticket ticket3 = new Ticket(3, 100, "LED", "AMS", 160);
     Ticket ticket4 = new Ticket(4, 280, "AMS", "CPT", 510);
 
     @BeforeEach
@@ -66,7 +66,7 @@ class TicketManagerTest {
         Ticket[] products = {ticket1, ticket2, ticket3, ticket4};
         doReturn(products).when(repository).findAll();
 
-        Ticket[] expectedTickets = {ticket1,  ticket3};
+        Ticket[] expectedTickets = {ticket3,  ticket1};
         Ticket[] returnedTickets = manager.searchBy("LED", "AMS");
         assertArrayEquals(expectedTickets, returnedTickets);
 

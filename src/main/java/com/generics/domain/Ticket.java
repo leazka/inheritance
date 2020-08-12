@@ -19,6 +19,6 @@ public class Ticket implements Comparable<Ticket>{
 
     @Override
     public int compareTo(Ticket o) {
-        return this.id - o.id;
+        return this.price - o.price;
     }
 }
